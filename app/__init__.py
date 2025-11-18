@@ -4,7 +4,7 @@ from .services.math_service import add, subtract, multiply, divide
 def create_app():
     app = Flask(__name__)
 
-    @app.rpute('/add/<int:a>/<int:b>')
+    @app.route('/add/<int:a>/<int:b>')
     def add_route(a, b):
         return jsonify({"result": add(a, b)})
     
