@@ -23,7 +23,7 @@ def add_route():
 
 @bp.route("/subtract", methods=["GET","POST"])
 def subtract_route():
-    a, b, err, code = _parse_numbers()
+    a, b, err, code = _parse_numbers() # parse_numbers function will return a,b, err, code
     if err:
         return err, code
     return jsonify({"result": subtract(a,b)})

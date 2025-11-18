@@ -1,3 +1,6 @@
+# creating a flask app / structure it
+
+
 from flask import Flask
 from .routes import bp
 
