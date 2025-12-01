@@ -24,4 +24,18 @@ def test_divide():
     with pytest.raises(ValueError):
         divide(5, 0)
 
-print(test_add)
+# from app.services.math_service import add, subtract, multiply, divide
+
+# def test():
+#     print(add(2,3))
+#     print(subtract(5,3))
+#     print(multiply(2,3))
+#     print(divide(6,3))
+
+#     try:
+#         print(divide(5,0))
+#     except ValueError:
+#         print("Cannot divide by zero.")
+
+# if __name__ == "__main__":
+#     test()
