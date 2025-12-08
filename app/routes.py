@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from. services.math_service import add, subtract, multiply, divide
 
 bp = Blueprint ('api',__name__)
@@ -11,13 +11,35 @@ def health():
 def home():
     return jsonify({"Calculator": "Please use /add/ | /subtract | /divide | /multiply"})
 
-# ADDITION
-@bp.route("/add")
-def add_home():
-    return jsonify({"Addition": "Please provide two numbers like /add/1/2"})
+# RULES: 
+# Users have to send information in the body of their request as JSON (raw JSON in Postman for testing)
 
-@bp.route("/add/<a>/<b>")
-def add_route(a, b):
+# TASKS:
+# 1. Create reusable JSON function
+# 2. All it at the start of all routes
+# 3. Remove 'home' routes 
+# 4. BONUS: Investigate flask 'middlewares' such as before_request and after_request https://www.geeksforgeeks.org/python/flask-middlewares/
+
+def ValidateJSON():
+    # This should contain the code to check that a user has submitted a JSON body in their request
+    return
+
+# ADDITION
+@bp.route("/add", methods=["POST"])
+def add_route():
+    # TODO This should be a reusable function that always runs at the start of a route call
+    if not request.is_json:
+        return jsonify({"error": "Please provide a JSON body"})
+    
+    data = request.get_json()
+    print(data)
+
+    if 'firstNumber' not in data or 'secondNumber' not in data:
+        return jsonify({"error": "Please provide firstNumber AND secondNumber in the body of your request"}), 400
+
+    a = data["firstNumber"]
+    b = data["secondNumber"]
+
     try:
         aValue = float(a)
         bValue = float(b)
@@ -28,6 +50,7 @@ def add_route(a, b):
         return jsonify({"result": result})
     except ValueError:
         return jsonify({"error": "Please provide either a float or integer"}), 400
+
     
 @bp.route("/subtract")
 def subtract_home():
